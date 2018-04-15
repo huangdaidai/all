@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* author: hdd
+* 2018-4-15
+-->
+<mapper namespace="com.hdd.account.dao.UmGroupDao">
+    <resultMap id="umGroup" type="UmGroup">
+        <id property="groupCode" column="group_code"/>
+        <result property="groupName" column="group_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="columns">
+       group_code, group_name, create_time
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO um_group
+        (
+        	group_code,
+        	group_name,
+        	create_time
+        )
+        VALUES 
+        (
+            #{groupCode},
+            #{groupName},
+            #{createTime}
+        )
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE FROM um_group
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="groupCode != null">
+                AND group_code = #{groupCode}
+            </if>
+            <if test="groupName != null">
+                AND group_name = #{groupCode}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{groupCode}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update">
+        UPDATE um_group
+        <set>
+            group_code = #{groupCode}, 
+            group_name = #{groupName}, 
+            create_time = #{createTime}
+        </set>
+        WHERE ID = #{ID}
+    </update>
+
+    <select id="select" resultMap="umGroup">
+        SELECT
+        <include refid="columns" />
+        FROM um_group
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="groupCode != null">
+            AND group_code = #{groupCode}
+            </if>
+            <if test="groupName != null">
+            AND group_name = #{groupName}
+            </if>
+            <if test="createTime != null">
+            AND create_time = #{createTime}
+            </if>
+        </trim>
+    </select>
+    
+    <select id="selectOne" resultMap="umGroup">
+        SELECT
+        <include refid="columns" />
+        FROM um_group
+        WHERE 
+	        group_code=#{groupCode}
+    </select>
+</mapper>

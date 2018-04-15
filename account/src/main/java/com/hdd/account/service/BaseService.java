@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.hdd.account.dao.BaseDao;
 import com.hdd.account.model.BaseEntity;
 
@@ -27,16 +28,20 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
 		return baseDao.insert(entity);
 	}
 
-	public int delete(T entity) {
-		return baseDao.delete(entity);
+	public int deleteOne(String id) {
+		return baseDao.deleteOne(id);
 	}
 
-	public int update(T app) {
-		return baseDao.update(app);
+	public int update(T t) {
+		return baseDao.update(t);
 	}
 
-	public List<T> select(T app) {
-		return baseDao.select(app);
+	public List<T> select(T t) {
+		return baseDao.select(t);
+	}
+	
+	public PageInfo<T> selectPage(T t) {
+		return baseDao.selectPage(t);
 	}
 
 	public T selectOne(String id) {

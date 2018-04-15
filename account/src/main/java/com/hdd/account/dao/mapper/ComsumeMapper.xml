@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* author: hdd
+* 2018-4-15
+-->
+<mapper namespace="com.hdd.account.dao.ComsumeDao">
+    <resultMap id="comsume" type="Comsume">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="account" column="account"/>
+        <result property="goodCode" column="good_code"/>
+        <result property="userType" column="user_type"/>
+        <result property="groupCode" column="group_code"/>
+        <result property="remark" column="remark"/>
+        <result property="creatTime" column="creat_time"/>
+    </resultMap>
+
+    <sql id="columns">
+       id, user_id, account, good_code, user_type, group_code, remark, creat_time
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO comsume
+        (
+        	id,
+        	user_id,
+        	account,
+        	good_code,
+        	user_type,
+        	group_code,
+        	remark,
+        	creat_time
+        )
+        VALUES 
+        (
+            #{id},
+            #{userId},
+            #{account},
+            #{goodCode},
+            #{userType},
+            #{groupCode},
+            #{remark},
+            #{creatTime}
+        )
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE FROM comsume
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{id}
+            </if>
+            <if test="account != null">
+                AND account = #{id}
+            </if>
+            <if test="goodCode != null">
+                AND good_code = #{id}
+            </if>
+            <if test="userType != null">
+                AND user_type = #{id}
+            </if>
+            <if test="groupCode != null">
+                AND group_code = #{id}
+            </if>
+            <if test="remark != null">
+                AND remark = #{id}
+            </if>
+            <if test="creatTime != null">
+                AND creat_time = #{id}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update">
+        UPDATE comsume
+        <set>
+            id = #{id}, 
+            user_id = #{userId}, 
+            account = #{account}, 
+            good_code = #{goodCode}, 
+            user_type = #{userType}, 
+            group_code = #{groupCode}, 
+            remark = #{remark}, 
+            creat_time = #{creatTime}
+        </set>
+        WHERE ID = #{ID}
+    </update>
+
+    <select id="select" resultMap="comsume">
+        SELECT
+        <include refid="columns" />
+        FROM comsume
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+            AND id = #{id}
+            </if>
+            <if test="userId != null">
+            AND user_id = #{userId}
+            </if>
+            <if test="account != null">
+            AND account = #{account}
+            </if>
+            <if test="goodCode != null">
+            AND good_code = #{goodCode}
+            </if>
+            <if test="userType != null">
+            AND user_type = #{userType}
+            </if>
+            <if test="groupCode != null">
+            AND group_code = #{groupCode}
+            </if>
+            <if test="remark != null">
+            AND remark = #{remark}
+            </if>
+            <if test="creatTime != null">
+            AND creat_time = #{creatTime}
+            </if>
+        </trim>
+    </select>
+    
+    <select id="selectOne" resultMap="comsume">
+        SELECT
+        <include refid="columns" />
+        FROM comsume
+        WHERE 
+	        id=#{id}
+    </select>
+</mapper>

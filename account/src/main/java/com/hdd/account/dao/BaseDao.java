@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hdd.account.model.BaseEntity;
 
 /**
@@ -49,8 +51,8 @@ public abstract class BaseDao<T extends BaseEntity<T>> {
 	 * @param t
 	 * @return
 	 */
-	public int delete(T t) {
-		return getSession().delete(NAMESPACE + "delete", t);
+	public int deleteOne(String id) {
+		return getSession().delete(NAMESPACE + "deleteOne", id);
 	}
 
 	/**
@@ -70,6 +72,18 @@ public abstract class BaseDao<T extends BaseEntity<T>> {
 	 */
 	public List<T> select(T t) {
 		return getSession().selectList(NAMESPACE + "select", t);
+	}
+	
+	/**
+	 * 查询列表--分页
+	 * @param t
+	 * @return
+	 */
+	public PageInfo<T> selectPage(T t) {
+		PageHelper.startPage(t.getPageNum(),t.getPageSize());
+		List<T> list=getSession().selectList(NAMESPACE + "select", t);
+		PageInfo<T> appsPageInfo = new PageInfo<>(list);
+		return appsPageInfo;
 	}
 
 	/**

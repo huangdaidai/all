@@ -5,8 +5,8 @@
 * author: ${author}
 * ${now?date}
 -->
-<mapper namespace="${package}.dao.${tableClass.className}Dao">
-    <resultMap id="${tableClass.className?uncap_first}" type="${tableClass.className}">
+<mapper namespace="${package}.dao.${table.className}Dao">
+    <resultMap id="${table.className?uncap_first}" type="${table.className}">
     <#list fields as f>
         <#if f.key=='PRI'>
         <id property="${f.field}" column="${f.field_}"/>
@@ -20,57 +20,43 @@
     </resultMap>
 
     <sql id="columns">
-       ${fields?join(", ", "None")}
+       <#list fields as f>${f.field_}<#sep>, </#list>
     </sql>
 
     <insert id="insert">
-        INSERT INTO ${table}
-        (<#list fields as f>  
-	        <#if f_has_next>
-	        ${f.field_} ,<#rt/>
-	        <#else >
-            ${f.field_}
-	        </#if>
-        </#list>)
-        VALUES (
-        <#list fields as f>
-        	<#if f_has_next>
-            ${r'#{'}${f.field}${r'}'},<#rt/> 
-	        <#else >
-            ${r'#{'}${f.field}${r'}'}
-	        </#if> 
-        </#list>)
+        INSERT INTO ${table.tableName}
+        (<#list fields as f>
+        	${f.field_}<#sep>,</#list>
+        )
+        VALUES 
+        (<#list fields as f>
+            ${'#{'}${f.field}${'}'}<#sep>,</#list>
+        )
     </insert>
 
-    <delete id="delete">
-        DELETE FROM ${table}
+    <delete id="deleteOne">
+        DELETE FROM ${table.tableName}
         <trim prefix="where " prefixOverrides="and ">
         <#list fields as f>
             <if test="${f.field} != null">
-                AND ${f.field_} = ${r'#{'}${f.field}${r'}'}
+                AND ${f.field_} = ${r'#{'}${primaryKeyField.field}${r'}'}
             </if>
         </#list>
         </trim>
     </delete>
 
     <update id="update">
-        UPDATE ${table}
-        <set>
-        <#list fields as f>
-        	<#if f_has_next>
-            ${f.field_} = ${r'#{'}${f.field}${r'}'},<#rt/>
-	        <#else >
-            ${f.field_} = ${r'#{'}${f.field}${r'}'}
-	        </#if> 
-        </#list>
+        UPDATE ${table.tableName}
+        <set><#list fields as f>
+            ${f.field_} = ${r'#{'}${f.field}${r'}'}<#sep>, </#list>
         </set>
         WHERE ID = ${r'#{ID}'}
     </update>
 
-    <select id="select" resultMap="${tableClass.className?uncap_first}">
+    <select id="select" resultMap="${table.className?uncap_first}">
         SELECT
         <include refid="columns" />
-        FROM ${table}
+        FROM ${table.tableName}
         <trim prefix="where " prefixOverrides="and ">
         <#list fields as f>
             <if test="${f.field} != null">
@@ -80,17 +66,15 @@
         </trim>
     </select>
     
-    <select id="selectOne" resultMap="${tableClass.className?uncap_first}">
+    <select id="selectOne" resultMap="${table.className?uncap_first}">
         SELECT
         <include refid="columns" />
-        FROM ${table}
+        FROM ${table.tableName}
         WHERE 
         <#list fields as f>
 	        <#if f.key=='PRI'>
-	        ${f.key}=#{id}
+	        ${f.field_}=${r'#{'}${f.field}${r'}'}
 	        </#if>
 	    </#list>
-        
-        
     </select>
 </mapper>

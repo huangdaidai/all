@@ -13,5 +13,9 @@ import lombok.Data;
 public class BaseEntity<T> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	public int pageNum;
+	
+	public int pageSize;
 
 }

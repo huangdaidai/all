@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* author: hdd
+* 2018-4-15
+-->
+<mapper namespace="com.hdd.account.dao.UserDao">
+    <resultMap id="user" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="groupCode" column="group_code"/>
+    </resultMap>
+
+    <sql id="columns">
+       user_id, user_name, password, email, register_time, group_code
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO user
+        (
+        	user_id,
+        	user_name,
+        	password,
+        	email,
+        	register_time,
+        	group_code
+        )
+        VALUES 
+        (
+            #{userId},
+            #{userName},
+            #{password},
+            #{email},
+            #{registerTime},
+            #{groupCode}
+        )
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE FROM user
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="userName != null">
+                AND user_name = #{userId}
+            </if>
+            <if test="password != null">
+                AND password = #{userId}
+            </if>
+            <if test="email != null">
+                AND email = #{userId}
+            </if>
+            <if test="registerTime != null">
+                AND register_time = #{userId}
+            </if>
+            <if test="groupCode != null">
+                AND group_code = #{userId}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update">
+        UPDATE user
+        <set>
+            user_id = #{userId}, 
+            user_name = #{userName}, 
+            password = #{password}, 
+            email = #{email}, 
+            register_time = #{registerTime}, 
+            group_code = #{groupCode}
+        </set>
+        WHERE ID = #{ID}
+    </update>
+
+    <select id="select" resultMap="user">
+        SELECT
+        <include refid="columns" />
+        FROM user
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="userId != null">
+            AND user_id = #{userId}
+            </if>
+            <if test="userName != null">
+            AND user_name = #{userName}
+            </if>
+            <if test="password != null">
+            AND password = #{password}
+            </if>
+            <if test="email != null">
+            AND email = #{email}
+            </if>
+            <if test="registerTime != null">
+            AND register_time = #{registerTime}
+            </if>
+            <if test="groupCode != null">
+            AND group_code = #{groupCode}
+            </if>
+        </trim>
+    </select>
+    
+    <select id="selectOne" resultMap="user">
+        SELECT
+        <include refid="columns" />
+        FROM user
+        WHERE 
+	        user_id=#{userId}
+    </select>
+</mapper>
