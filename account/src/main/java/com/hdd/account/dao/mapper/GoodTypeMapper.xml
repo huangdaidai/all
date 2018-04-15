@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* author: hdd
+* 2018-4-15
+-->
+<mapper namespace="com.hdd.account.dao.GoodTypeDao">
+    <resultMap id="goodType" type="GoodType">
+        <id property="goodTypeCode" column="good_type_code"/>
+        <result property="goodTypeName" column="good_type_name"/>
+    </resultMap>
+
+    <sql id="columns">
+       good_type_code, good_type_name
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO good_type
+        (
+        	good_type_code,
+        	good_type_name
+        )
+        VALUES 
+        (
+            #{goodTypeCode},
+            #{goodTypeName}
+        )
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE FROM good_type
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="goodTypeCode != null">
+                AND good_type_code = #{goodTypeCode}
+            </if>
+            <if test="goodTypeName != null">
+                AND good_type_name = #{goodTypeCode}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update">
+        UPDATE good_type
+        <set>
+            good_type_code = #{goodTypeCode}, 
+            good_type_name = #{goodTypeName}
+        </set>
+        WHERE ID = #{ID}
+    </update>
+
+    <select id="select" resultMap="goodType">
+        SELECT
+        <include refid="columns" />
+        FROM good_type
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="goodTypeCode != null">
+            AND good_type_code = #{goodTypeCode}
+            </if>
+            <if test="goodTypeName != null">
+            AND good_type_name = #{goodTypeName}
+            </if>
+        </trim>
+    </select>
+    
+    <select id="selectOne" resultMap="goodType">
+        SELECT
+        <include refid="columns" />
+        FROM good_type
+        WHERE 
+	        good_type_code=#{goodTypeCode}
+    </select>
+</mapper>
