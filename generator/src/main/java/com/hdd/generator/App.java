@@ -36,9 +36,12 @@ public class App {
         CreateService _CreateService =CreateService.getInstance();
         ms.createModels();
 		ds.createDaos();
+		ds.createDaoImpls();
 		ds.createMappers();
 		ss.createServices();
+		ss.createServiceImpls();
 		cs.createControllers();
+		cs.createBaseController();
 //		fs.createJss();
 //		fs.createJsps();
         

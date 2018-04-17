@@ -1,16 +1,16 @@
-/**
- * 
- */
 package com.hdd.account.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hdd.account.service.ComsumeService;
 
 /**
- * @author hdd
- * 2018年4月14日
- * 
- */
-@Controller
-public abstract class BaseController{
+* author: hdd
+* createdOn: 2018-4-17
+*/
+public class BaseController {
+	@Autowired
+	ComsumeService comsumeService;
 	
+    
 }

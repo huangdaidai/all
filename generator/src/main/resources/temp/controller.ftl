@@ -1,7 +1,7 @@
-package com.hdd.account.controller;
+package ${package}.controller;
 
-import com.hdd.account.service.ComsumeService;
-import com.hdd.account.model.Comsume;
+import ${package}.service.${table.className}Service;
+import ${package}.model.${table.className};
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,24 +17,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 /**
-* author: hdd
-* createdOn: 2018-4-17
+* author: ${author}
+* createdOn: ${now?date}
 */
 @Controller
-@RequestMapping("/comsume")
-public class ComsumeController extends BaseController {
+@RequestMapping("/${table.className?uncap_first}")
+public class ${table.className}Controller extends BaseController {
 
-	Logger log=LoggerFactory.getLogger(ComsumeController.class);
+	Logger log=LoggerFactory.getLogger(${table.className}Controller.class);
 	
 	/**
 	 * 列表视图
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(HttpServletRequest request, HttpServletResponse response, Comsume comsume) {
-		PageInfo<Comsume> pageInfo=null;
+	public Object list(HttpServletRequest request, HttpServletResponse response, ${table.className} ${table.className?uncap_first}) {
+		PageInfo<${table.className}> pageInfo=null;
 		try {
-			pageInfo = comsumeService.selectPage(comsume);
+			pageInfo = ${table.className?uncap_first}Service.selectPage(${table.className?uncap_first});
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
@@ -49,19 +49,19 @@ public class ComsumeController extends BaseController {
 	public ModelAndView get(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			String id = request.getParameter("id");
-			if (StringUtils.isNotEmpty(id)) {
-				Comsume data = comsumeService.selectOne(id);
+			${primaryKeyField.type} ${primaryKeyField.field} = request.getParameter("${primaryKeyField.field}");
+			if (StringUtils.isNotEmpty(${primaryKeyField.field})) {
+				${table.className} data = ${table.className?uncap_first}Service.selectOne(${primaryKeyField.field});
 				mv.addObject("model", data);
 			} else {
-				mv.addObject("model", new Comsume());
+				mv.addObject("model", new ${table.className}());
 			}
 
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
 
-		mv.setViewName("admin/comsume/get");
+		mv.setViewName("admin/${table.className?uncap_first}/get");
 		return mv;
 
 	}
@@ -71,10 +71,10 @@ public class ComsumeController extends BaseController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public Object add(@RequestBody Comsume comsume) {
+	public Object add(@RequestBody ${table.className} ${table.className?uncap_first}) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = comsumeService.insert(comsume);
+			int num = ${table.className?uncap_first}Service.insert(${table.className?uncap_first});
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -88,10 +88,10 @@ public class ComsumeController extends BaseController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Object edit(@RequestBody Comsume comsume) {
+	public Object edit(@RequestBody ${table.className} ${table.className?uncap_first}) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = comsumeService.update(comsume);
+			int num = ${table.className?uncap_first}Service.update(${table.className?uncap_first});
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -105,10 +105,10 @@ public class ComsumeController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public Object delete(@RequestParam(value="id") String id) {
+	public Object delete(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = comsumeService.deleteOne(id);
+			int num = ${table.className?uncap_first}Service.deleteOne(${primaryKeyField.field});
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);

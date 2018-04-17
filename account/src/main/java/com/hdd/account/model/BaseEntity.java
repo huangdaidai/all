@@ -10,12 +10,12 @@ import lombok.Data;
  */
 
 @Data
-public class BaseEntity<T> implements Serializable{
+public class BaseEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	public int pageNum;
 	
 	public int pageSize;
-
+	
 }

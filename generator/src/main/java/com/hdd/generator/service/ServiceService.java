@@ -27,4 +27,12 @@ public class ServiceService {
 			cs.write2File(m, "Service.ftl", new File(path + File.separator + className + "Service.java"));
 		}
 	}
+	public void createServiceImpls() throws IOException, TemplateException {
+		String path = MyUtil.mkDir("service.impl");
+		List<Map<String, Object>> list = TableMaps.getTablesMsgList();
+		for (Map<String, Object> m : list) {
+			String className = ((Table) m.get("table")).getClassName();
+			cs.write2File(m, "serviceImpl.ftl", new File(path + File.separator + className + "ServiceImpl.java"));
+		}
+	}
 }

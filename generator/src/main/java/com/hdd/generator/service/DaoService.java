@@ -27,7 +27,17 @@ public class DaoService {
 		List<Map<String, Object>> list = TableMaps.getTablesMsgList();
 		for (Map<String, Object> m : list) {
 			String className = ((Table) m.get("table")).getClassName();
-			cs.write2File(m, "Dao.ftl", new File(path + File.separator + className + "Dao.java"));
+			cs.write2File(m, "dao.ftl", new File(path + File.separator + className + "Dao.java"));
+		}
+	}
+	
+	public void createDaoImpls() throws IOException, TemplateException {
+		String path = MyUtil.mkDir("dao.impl");
+		
+		List<Map<String, Object>> list = TableMaps.getTablesMsgList();
+		for (Map<String, Object> m : list) {
+			String className = ((Table) m.get("table")).getClassName();
+			cs.write2File(m, "daoImpl.ftl", new File(path + File.separator + className + "DaoImpl.java"));
 		}
 	}
 
@@ -36,7 +46,7 @@ public class DaoService {
 		List<Map<String, Object>> list = TableMaps.getTablesMsgList();
 		for (Map<String, Object> m : list) {
 			String className = ((Table) m.get("table")).getClassName();
-			cs.write2File(m, "Mapper.ftl", new File(path + File.separator + className + "Mapper.xml"));
+			cs.write2File(m, "mapper.ftl", new File(path + File.separator + className + "Mapper.xml"));
 		}
 	}
 

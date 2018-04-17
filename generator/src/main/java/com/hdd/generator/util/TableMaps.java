@@ -19,6 +19,7 @@ import com.hdd.generator.model.Table;
 public class TableMaps {
     static Map<String,List<Field>> tables = new HashMap<String, List<Field>>();
     static Map<String,Table> classes = new HashMap<String, Table>();
+    static List<Table> tableList=new ArrayList<>();
     static String[] tablePrefixFilters = Config.get("tablePrefixFilters").split(","); 
     public static List<Field> put(String tableName,List<Field> fields){
     	Table tb = new Table();
@@ -30,7 +31,7 @@ public class TableMaps {
     	tb.setClassName(MyUtil.a_b2AB(className));
     	tb.setComment("");
     	classes.put(tableName, tb);
-    	
+    	tableList.add(tb);
         return tables.put(tableName,fields);
     }
 
@@ -109,4 +110,9 @@ public class TableMaps {
 		}
     	return list;
     }
+
+	public static List<Table> getTableList() {
+		return tableList;
+	}
+    
 }

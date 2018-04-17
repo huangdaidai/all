@@ -2,50 +2,55 @@ package com.hdd.account.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageInfo;
-import com.hdd.account.dao.BaseDao;
 import com.hdd.account.model.BaseEntity;
 
 /**
- * Service基类
+ * 
+ * @author huangshunsi
+ * 2018年4月17日
+ * @param <T>
  */
-
-@Service("baseService")
-public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>> {
+public interface BaseService<T extends BaseEntity> {
 
 	/**
-	 * 持久层对象
+	 * 插入记录
+	 * @param t
+	 * @return
 	 */
-
-	protected D baseDao;
-
-	public void setDao(D baseDao) {
-		this.baseDao = baseDao;
-	}
-	public int insert(T entity) {
-		return baseDao.insert(entity);
-	}
-
-	public int deleteOne(String id) {
-		return baseDao.deleteOne(id);
-	}
-
-	public int update(T t) {
-		return baseDao.update(t);
-	}
-
-	public List<T> select(T t) {
-		return baseDao.select(t);
-	}
+	public int insert(T t);
 	
-	public PageInfo<T> selectPage(T t) {
-		return baseDao.selectPage(t);
-	}
+	/**
+	 * 删除记录
+	 * @param t
+	 * @return
+	 */
+	public int deleteOne(String id);
+	/**
+	 * 更新记录
+	 * @param t
+	 * @return
+	 */
+	public int update(T t);
 
-	public T selectOne(String id) {
-		return baseDao.selectOne(id);
-	}
+	/**
+	 * 查询列表
+	 * @param t
+	 * @return
+	 */
+	public List<T> select(T t);
+	
+	/**
+	 * 查询列表--分页
+	 * @param t
+	 * @return
+	 */
+	public PageInfo<T> selectPage(T t);
 
+	/**
+	 * 查询单条记录
+	 * @param id
+	 * @return
+	 */
+	public T selectOne(String id);
 }

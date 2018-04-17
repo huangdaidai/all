@@ -24,7 +24,7 @@ public class ModelService {
 		List<Map<String, Object>> list = TableMaps.getTablesMsgList();
 		for (Map<String, Object> m : list) {
 			String className = ((Table) m.get("table")).getClassName();
-			cs.write2File(m, "Model.ftl", new File(path + File.separator + className + ".java"));
+			cs.write2File(m, "model.ftl", new File(path + File.separator + className + ".java"));
 		}
 	}
 }

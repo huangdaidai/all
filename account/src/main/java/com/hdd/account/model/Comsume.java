@@ -1,19 +1,19 @@
 package com.hdd.account.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.lang.String;
+import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 
 /**
 * author: hdd
-* 2018-4-15
+* 2018-4-17
 */
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class Comsume extends BaseEntity<Comsume>  implements Serializable{
+public class Comsume extends BaseEntity  implements Serializable{
     
     private static final long serialVersionUID = 1L;
     

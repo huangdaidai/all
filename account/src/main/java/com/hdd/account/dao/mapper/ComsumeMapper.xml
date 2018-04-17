@@ -3,7 +3,7 @@
 
 <!--
 * author: hdd
-* 2018-4-15
+* 2018-4-17
 -->
 <mapper namespace="com.hdd.account.dao.ComsumeDao">
     <resultMap id="comsume" type="Comsume">
