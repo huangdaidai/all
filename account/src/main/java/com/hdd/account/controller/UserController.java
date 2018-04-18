@@ -1,7 +1,7 @@
-package ${package}.controller;
+package com.hdd.account.controller;
 
-import ${package}.service.${table.className}Service;
-import ${package}.model.${table.className};
+import com.hdd.account.service.UserService;
+import com.hdd.account.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
-* author: ${author}
-* createdOn: ${now?date}
+* author: hdd
+* createdOn: 2018-4-18
 */
 @Controller
-@RequestMapping("/${table.className?uncap_first}")
-public class ${table.className}Controller extends BaseController {
+@RequestMapping("/user")
+public class UserController extends BaseController {
 
-	Logger log=LoggerFactory.getLogger(${table.className}Controller.class);
+	Logger log=LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	${table.className}Service ${table.className?uncap_first}Service;
+	UserService userService;
 
 	/**
 	 * 列表视图
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(${table.className} ${table.className?uncap_first}) {
-		PageInfo<${table.className}> pageInfo=null;
+	public Object list(User user) {
+		PageInfo<User> pageInfo=null;
 		try {
-			pageInfo = ${table.className?uncap_first}Service.selectPage(${table.className?uncap_first});
+			pageInfo = userService.selectPage(user);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
@@ -48,21 +48,21 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView get(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
+	public ModelAndView get(@RequestParam(value="userId") String userId) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			if (StringUtils.isNotEmpty(${primaryKeyField.field})) {
-				${table.className} data = ${table.className?uncap_first}Service.selectOne(${primaryKeyField.field});
+			if (StringUtils.isNotEmpty(userId)) {
+				User data = userService.selectOne(userId);
 				mv.addObject("model", data);
 			} else {
-				mv.addObject("model", new ${table.className}());
+				mv.addObject("model", new User());
 			}
 
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
 
-		mv.setViewName("admin/${table.className?uncap_first}/get");
+		mv.setViewName("admin/user/get");
 		return mv;
 
 	}
@@ -72,10 +72,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public Object add(@RequestBody ${table.className} ${table.className?uncap_first}) {
+	public Object add(@RequestBody User user) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.insert(${table.className?uncap_first});
+			int num = userService.insert(user);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -89,10 +89,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Object edit(@RequestBody ${table.className} ${table.className?uncap_first}) {
+	public Object edit(@RequestBody User user) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.update(${table.className?uncap_first});
+			int num = userService.update(user);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -106,10 +106,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public Object delete(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
+	public Object delete(@RequestParam(value="userId") String userId) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.deleteOne(${primaryKeyField.field});
+			int num = userService.deleteOne(userId);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);

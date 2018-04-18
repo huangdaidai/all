@@ -3,9 +3,9 @@
 
 <!--
 * author: hdd
-* 2018-4-17
+* 2018-4-18
 -->
-<mapper namespace="com.hdd.account.dao.ComsumeDao">
+<mapper namespace="com.hdd.account.dao.impl.ComsumeDaoImpl">
     <resultMap id="comsume" type="Comsume">
         <id property="id" column="id"/>
         <result property="userId" column="user_id"/>

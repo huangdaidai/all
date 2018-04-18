@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 /**
 * author: ${author}
 * createdOn: ${now?date}
@@ -25,15 +26,12 @@ public class ${table.className}Controller extends BaseController {
 
 	Logger log=LoggerFactory.getLogger(${table.className}Controller.class);
 	
-	@Autowired
-	${table.className}Service ${table.className?uncap_first}Service;
-
 	/**
 	 * 列表视图
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(${table.className} ${table.className?uncap_first}) {
+	public Object list(HttpServletRequest request, HttpServletResponse response, ${table.className} ${table.className?uncap_first}) {
 		PageInfo<${table.className}> pageInfo=null;
 		try {
 			pageInfo = ${table.className?uncap_first}Service.selectPage(${table.className?uncap_first});
@@ -48,9 +46,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView get(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
+	public ModelAndView get(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		try {
+			${primaryKeyField.type} ${primaryKeyField.field} = request.getParameter("${primaryKeyField.field}");
 			if (StringUtils.isNotEmpty(${primaryKeyField.field})) {
 				${table.className} data = ${table.className?uncap_first}Service.selectOne(${primaryKeyField.field});
 				mv.addObject("model", data);

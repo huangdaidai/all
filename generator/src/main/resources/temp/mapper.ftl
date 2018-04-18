@@ -5,7 +5,7 @@
 * author: ${author}
 * ${now?date}
 -->
-<mapper namespace="${package}.dao.${table.className}Dao">
+<mapper namespace="${package}.dao.impl.${table.className}DaoImpl">
     <resultMap id="${table.className?uncap_first}" type="${table.className}">
     <#list fields as f>
         <#if f.key=='PRI'>

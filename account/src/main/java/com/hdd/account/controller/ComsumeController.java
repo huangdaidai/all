@@ -15,10 +15,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
 * author: hdd
-* createdOn: 2018-4-17
+* createdOn: 2018-4-18
 */
 @Controller
 @RequestMapping("/comsume")
@@ -26,14 +25,18 @@ public class ComsumeController extends BaseController {
 
 	Logger log=LoggerFactory.getLogger(ComsumeController.class);
 	
+	@Autowired
+	ComsumeService comsumeService;
+
 	/**
 	 * 列表视图
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(HttpServletRequest request, HttpServletResponse response, Comsume comsume) {
+	public Object list(Comsume comsume) {
 		PageInfo<Comsume> pageInfo=null;
 		try {
+			System.out.println("333333333333333:"+request.getParameter("a"));
 			pageInfo = comsumeService.selectPage(comsume);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -46,10 +49,9 @@ public class ComsumeController extends BaseController {
 	 */
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView get(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView get(@RequestParam(value="id") String id) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			String id = request.getParameter("id");
 			if (StringUtils.isNotEmpty(id)) {
 				Comsume data = comsumeService.selectOne(id);
 				mv.addObject("model", data);

@@ -1,21 +1,20 @@
-package com.hdd.account.dao;
+package com.hdd.account.service;
 
+import com.hdd.account.model.GoodDetail;
 import com.github.pagehelper.PageInfo;
-import com.hdd.account.model.BaseEntity;
-
 import java.util.List;
 /**
-* author: ${author}
-* createdOn: ${now?date}
+* author: hdd
+* createdOn: 2018-4-18
 */
-public interface BaseDao<T extends BaseEntity> {
+public interface GoodDetailService {
 	/**
 	 * 插入记录
 	 * 
 	 * @param t
 	 * @return
 	 */
-	public int insert(T t);
+	public int insert(GoodDetail goodDetail);
 
 	/**
 	 * 删除记录
@@ -30,7 +29,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public int update(T t);
+	public int update(GoodDetail goodDetail);
 
 	/**
 	 * 查询列表
@@ -38,7 +37,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public List<T> select(T t);
+	public List<GoodDetail> select(GoodDetail goodDetail);
 
 	/**
 	 * 查询列表--分页
@@ -46,7 +45,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public PageInfo<T> selectPage(T t);
+	public PageInfo<GoodDetail> selectPage(GoodDetail goodDetail);
 
 	/**
 	 * 查询单条记录
@@ -54,5 +53,5 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param id
 	 * @return
 	 */
-	public T selectOne(String id);
+	public GoodDetail selectOne(String id);
 }

@@ -1,7 +1,6 @@
 package ${package}.dao;
 
 import ${package}.model.${table.className};
-import ${package}.dao.BaseDao;
 
 /**
 * author: ${author}

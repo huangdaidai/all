@@ -13,8 +13,7 @@ import com.github.pagehelper.PageInfo;
 import com.hdd.account.dao.BaseDao;
 import com.hdd.account.model.BaseEntity;
 
-@Repository
-public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
+public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T>{
 	@Resource
 	private SqlSessionFactory sessionFactory;
 
@@ -40,6 +39,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param t
 	 * @return
 	 */
+	@Override
 	public int insert(T t) {
 		return getSession().insert(NAMESPACE + "insert", t);
 	}
@@ -50,6 +50,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param t
 	 * @return
 	 */
+	@Override
 	public int deleteOne(String id) {
 		return getSession().delete(NAMESPACE + "deleteOne", id);
 	}
@@ -60,6 +61,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param t
 	 * @return
 	 */
+	@Override
 	public int update(T t) {
 		return getSession().update(NAMESPACE + "update", t);
 
@@ -71,6 +73,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param t
 	 * @return
 	 */
+	@Override
 	public List<T> select(T t) {
 		return getSession().selectList(NAMESPACE + "select", t);
 	}
@@ -81,6 +84,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param t
 	 * @return
 	 */
+	@Override
 	public PageInfo<T> selectPage(T t) {
 		PageHelper.startPage(t.getPageNum(), t.getPageSize());
 		List<T> list = getSession().selectList(NAMESPACE + "select", t);
@@ -93,6 +97,7 @@ public class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public T selectOne(String id) {
 		return getSession().selectOne(NAMESPACE + "selectOne", id);
 	}

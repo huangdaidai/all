@@ -1,7 +1,7 @@
-package ${package}.controller;
+package com.hdd.account.controller;
 
-import ${package}.service.${table.className}Service;
-import ${package}.model.${table.className};
+import com.hdd.account.service.UmGroupService;
+import com.hdd.account.model.UmGroup;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
-* author: ${author}
-* createdOn: ${now?date}
+* author: hdd
+* createdOn: 2018-4-18
 */
 @Controller
-@RequestMapping("/${table.className?uncap_first}")
-public class ${table.className}Controller extends BaseController {
+@RequestMapping("/umGroup")
+public class UmGroupController extends BaseController {
 
-	Logger log=LoggerFactory.getLogger(${table.className}Controller.class);
+	Logger log=LoggerFactory.getLogger(UmGroupController.class);
 	
 	@Autowired
-	${table.className}Service ${table.className?uncap_first}Service;
+	UmGroupService umGroupService;
 
 	/**
 	 * 列表视图
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Object list(${table.className} ${table.className?uncap_first}) {
-		PageInfo<${table.className}> pageInfo=null;
+	public Object list(UmGroup umGroup) {
+		PageInfo<UmGroup> pageInfo=null;
 		try {
-			pageInfo = ${table.className?uncap_first}Service.selectPage(${table.className?uncap_first});
+			pageInfo = umGroupService.selectPage(umGroup);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
@@ -48,21 +48,21 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView get(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
+	public ModelAndView get(@RequestParam(value="groupCode") String groupCode) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			if (StringUtils.isNotEmpty(${primaryKeyField.field})) {
-				${table.className} data = ${table.className?uncap_first}Service.selectOne(${primaryKeyField.field});
+			if (StringUtils.isNotEmpty(groupCode)) {
+				UmGroup data = umGroupService.selectOne(groupCode);
 				mv.addObject("model", data);
 			} else {
-				mv.addObject("model", new ${table.className}());
+				mv.addObject("model", new UmGroup());
 			}
 
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
 		}
 
-		mv.setViewName("admin/${table.className?uncap_first}/get");
+		mv.setViewName("admin/umGroup/get");
 		return mv;
 
 	}
@@ -72,10 +72,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public Object add(@RequestBody ${table.className} ${table.className?uncap_first}) {
+	public Object add(@RequestBody UmGroup umGroup) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.insert(${table.className?uncap_first});
+			int num = umGroupService.insert(umGroup);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -89,10 +89,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public Object edit(@RequestBody ${table.className} ${table.className?uncap_first}) {
+	public Object edit(@RequestBody UmGroup umGroup) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.update(${table.className?uncap_first});
+			int num = umGroupService.update(umGroup);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);
@@ -106,10 +106,10 @@ public class ${table.className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public Object delete(@RequestParam(value="${primaryKeyField.field}") ${primaryKeyField.type} ${primaryKeyField.field}) {
+	public Object delete(@RequestParam(value="groupCode") String groupCode) {
 		ModelAndView mv = new ModelAndView();
 		try {
-			int num = ${table.className?uncap_first}Service.deleteOne(${primaryKeyField.field});
+			int num = umGroupService.deleteOne(groupCode);
 			mv.addObject("success", num);
 		} catch (Exception e) {
 			log.error("出错："+e.getMessage(), e);

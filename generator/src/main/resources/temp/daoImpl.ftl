@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 * author: ${author}
 * ${now?date}
 */
-@Repository
+@Repository("${table.className?uncap_first}Dao")
 public class ${table.className}DaoImpl extends BaseDaoImpl<${table.className}>
 	implements ${table.className}Dao{
    

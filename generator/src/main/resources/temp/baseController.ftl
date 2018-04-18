@@ -1,8 +1,9 @@
 package ${package}.controller;
 
-<#list allTables as t>
-import ${package}.service.${t.className}Service;
-</#list>
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -10,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 * createdOn: ${now?date}
 */
 public class BaseController {
-	<#list allTables as t>
-	@Autowired
-	${t.className}Service ${t.className?uncap_first}Service;
 	
-	</#list>
+	@Autowired
+	HttpServletRequest request;
+
+	@Autowired
+	HttpServletResponse response;
+	
+	@Autowired
+	HttpSession session;
     
 }

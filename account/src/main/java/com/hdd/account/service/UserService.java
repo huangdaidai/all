@@ -1,21 +1,20 @@
-package com.hdd.account.dao;
+package com.hdd.account.service;
 
+import com.hdd.account.model.User;
 import com.github.pagehelper.PageInfo;
-import com.hdd.account.model.BaseEntity;
-
 import java.util.List;
 /**
-* author: ${author}
-* createdOn: ${now?date}
+* author: hdd
+* createdOn: 2018-4-18
 */
-public interface BaseDao<T extends BaseEntity> {
+public interface UserService {
 	/**
 	 * 插入记录
 	 * 
 	 * @param t
 	 * @return
 	 */
-	public int insert(T t);
+	public int insert(User user);
 
 	/**
 	 * 删除记录
@@ -30,7 +29,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public int update(T t);
+	public int update(User user);
 
 	/**
 	 * 查询列表
@@ -38,7 +37,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public List<T> select(T t);
+	public List<User> select(User user);
 
 	/**
 	 * 查询列表--分页
@@ -46,7 +45,7 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param t
 	 * @return
 	 */
-	public PageInfo<T> selectPage(T t);
+	public PageInfo<User> selectPage(User user);
 
 	/**
 	 * 查询单条记录
@@ -54,5 +53,5 @@ public interface BaseDao<T extends BaseEntity> {
 	 * @param id
 	 * @return
 	 */
-	public T selectOne(String id);
+	public User selectOne(String id);
 }
