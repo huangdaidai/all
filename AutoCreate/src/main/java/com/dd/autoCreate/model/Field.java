@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Field {
-    String fieldInDB;
-    String fieldInClass;
+    String fieldNameInDB;
+    String fieldNameInClass;
     String typeInDB;
     String typeInClass;
     String collation;
