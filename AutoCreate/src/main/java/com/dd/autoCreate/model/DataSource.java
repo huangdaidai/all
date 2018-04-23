@@ -8,4 +8,6 @@ public class DataSource {
 	private String port;
 	private String userName;
 	private String password;
+	private String dbType;
+	private String dbName;
 }

@@ -1,9 +1,5 @@
 package com.dd.autoCreate.common.util;
 
-import java.io.File;
-import java.util.List;
-
-
 /**
  * Created by page on 2017/6/13.
  */
