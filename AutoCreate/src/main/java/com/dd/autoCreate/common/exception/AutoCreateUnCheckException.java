@@ -16,6 +16,7 @@ public class AutoCreateUnCheckException extends RuntimeException{
 	 * @param string
 	 */
 	public AutoCreateUnCheckException(String s) {
-		new RuntimeException(s);
+		super(s);
 	}
+
 }
